@@ -15,11 +15,11 @@ define(function(){
 
 			curr.dna = dna;
 			curr.chain = children[children.length-1];
-			children.push(curr)
+			children.push(curr);
 
 		}, this);
 
 		return children;
-	}
+	};
 	return api;
 });

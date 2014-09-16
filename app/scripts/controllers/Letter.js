@@ -1,27 +1,35 @@
 /*global define*/
-define(function(){
+define(function(require){
 	'use strict';
 
-	var Letter = {
+	var Font = require('data/Font');
 
-	};
 
-	Letter.id = "Letter";
 
-	Letter.init = function(dna, queueMe, queueTotal){
+
+	function Letter(dna, queueMe, queueTotal){
 		this.dna = dna;
+
 		this.queueMe = queueMe;
 		this.queueTotal = queueTotal;
 
-	};
+		this.font = Font.getCharacter(dna);
 
-	var api = { };
-	api.create = function(dna, queueMe, queueTotal){
-		var newLetter = Object.create(Letter);
+		var pos = { x:0, y:0 };
 
-		newLetter.init(dna, queueMe, queueTotal);
-		return newLetter;
-	};
 
-	return api;
+		Object.defineProperty(this, 'width', {
+		    get: function() { return this.font.width; },
+		});
+
+		Object.defineProperty(this, 'x', {
+		    get: function() { return pos.x; },
+		    set: function(value) { pos.x = value; },
+		});
+
+	}
+
+
+
+	return Letter;
 });

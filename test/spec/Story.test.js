@@ -1,10 +1,10 @@
-/*global define expect*/
+/* global define, describe, describe, it, beforeEach */
 define(function(require){
 	'use strict';
 
 
 	var Story = require('controllers/Story');
-	var expect = chai.expect;
+	var expect = require('chai').expect;
 
 	describe('Story bitches', function() {
 		var _messages = [];
@@ -12,14 +12,19 @@ define(function(require){
 		var _firstWord;
 		var _firstLetter;
 
-		var _storyContent = [ 'Row row row your boat.', 'Gently down the stream.', 'Merrily Merrily Merrily Merrily Merrily.', 'Life is but a dream.' ];
-		Story.start(_storyContent);
 
+		var _storyContent = [ 'Row row row your boat.', 'Gently down the stream.', 'Merrily Merrily Merrily Merrily Merrily.', 'Life is but a dream.' ];
 
 
 		beforeEach(function(){
-			_messages = Story.list;
+
+			var s = new Story( _storyContent );
+			_messages = s.list;
+
 		});
+
+
+
 
 
 
@@ -53,22 +58,23 @@ define(function(require){
 					});
 
 					it('R queueMe === 0', function() {
+						console.log(_firstLetter);
 						expect(_firstLetter.queueMe).to.equal(0);
 					});
-				})
+				});
 
-			})
-		})
+			});
+		});
 
 
 		describe('Helper', function(){
 			it('second Message, Word, Letter is same as the first', function() {
 				var message_ = _messages[1].chain.dna;
-				var word_Row = _firstMessage.list[1].chain.dna;
-				var letter_R = _firstWord.list[1].chain.dna;
-				expect(word_Row).to.equal(_firstWord.dna)
-				expect(letter_R).to.equal(_firstLetter.dna)
-				expect(message_).to.equal(_messages[0].dna)
+				var wordRow = _firstMessage.list[1].chain.dna;
+				var letterR = _firstWord.list[1].chain.dna;
+				expect(wordRow).to.equal(_firstWord.dna);
+				expect(letterR).to.equal(_firstLetter.dna);
+				expect(message_).to.equal(_messages[0].dna);
 			});
 
 			it('first Message, Word, Letter is undefined', function() {

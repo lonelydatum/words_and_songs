@@ -16,10 +16,14 @@ require.config({
 define(function(require) {
   var chai = require('chai');
   var mochas = require('mocha');
+
   // require('jquery');
   // require('chai-jquery');
 
   // Chai
+
+
+
 
   // chai.use(chaiJquery);
 
@@ -29,11 +33,12 @@ define(function(require) {
   require([
     '_spec/Story.test',
     '_spec/Message.test',
-    '_spec/Word.test'
+    '_spec/Word.test',
+    '_spec/Letter.test',
+    '_spec/Font.test'
      ], function(require) {
     if (window.mochaPhantomJS) {
       mochaPhantomJS.run();
-
     }
     else {
       mocha.run();

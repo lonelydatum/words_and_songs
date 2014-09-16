@@ -29,14 +29,14 @@ module.exports = function (grunt) {
         watch: {
             js: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-                tasks: ['jshint'],
+                // tasks: ['jshint'],
                 options: {
                     livereload: true
                 }
             },
             jstest: {
                 files: ['test/spec/{,*/}*.js'],
-                tasks: ['test:watch']
+                // tasks: ['test:watch']
             },
             gruntfile: {
                 files: ['Gruntfile.js']
@@ -380,7 +380,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'connect:test',
-            'mocha'
+            // 'mocha'
         ]);
     });
 
