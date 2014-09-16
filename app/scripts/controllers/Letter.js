@@ -2,20 +2,24 @@
 define(function(){
 	'use strict';
 
-	var Letter = {};
-	Letter.name = null;
-	Letter.queueMe = 0;
-	Letter.queueTotal = 0;
-	Letter.init = function(letter, queueMe, queueTotal){
-		this.name = letter;
+	var Letter = {
+
+	};
+
+	Letter.id = "Letter";
+
+	Letter.init = function(dna, queueMe, queueTotal){
+		this.dna = dna;
 		this.queueMe = queueMe;
 		this.queueTotal = queueTotal;
+
 	};
 
 	var api = { };
-	api.create = function(letter, queueMe, queueTotal){
+	api.create = function(dna, queueMe, queueTotal){
 		var newLetter = Object.create(Letter);
-		newLetter.init(letter, queueMe, queueTotal);
+
+		newLetter.init(dna, queueMe, queueTotal);
 		return newLetter;
 	};
 

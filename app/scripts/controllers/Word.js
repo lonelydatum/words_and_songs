@@ -2,33 +2,22 @@
 define(function(require){
 	'use strict';
 
+	var Helper = require('Helper');
 	var Letter = require('controllers/Letter');
 
-	var Word = {};
-	Word.namer = null;
-	Word.queueMe = 0;
-	Word.queueTotal = 0;
-	Word.letters = [];
-	Word.init = function(word, queueMe, queueTotal){
-		this.namer = word;
-		this.queueMe = queueMe;
-		this.queueTotal = queueTotal;
-		this.letters = [];
-		var lettersSplit = this.namer.split('');
-		lettersSplit.forEach(function(letter, index){
-			var l = Letter.create(letter, index, lettersSplit.length);
-
-			this.letters.push( l );
-		}, this);
-
-		console.log(this);
-
+	var Word = {
+		id: 'Word'
 	};
 
+
+
 	var api = { };
-	api.create = function(word, queueMe, queueTotal){
+	api.create = function(dna, queueMe, queueTotal){
 		var newWord = Object.create(Word);
-		newWord.init(word, queueMe, queueTotal);
+		newWord.list = Helper.createChildren( Letter, dna.split('') );
+		newWord.dna = dna;
+		newWord.queueMe = queueMe;
+		newWord.queueTotal = queueTotal;
 		return newWord;
 	};
 

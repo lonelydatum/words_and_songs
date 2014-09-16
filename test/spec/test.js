@@ -1,12 +1,19 @@
-/*global describe, it */
-'use strict';
-(function () {
+define(function(require) {
+  var Word = require('controllers/Word');
 
-    describe('Give it some context', function () {
-        describe('maybe a bit more context here', function () {
-            it('should run here few assertions', function () {
 
-            });
-        });
+
+  describe('Words bitches', function() {
+
+    describe('Sample Model', function() {
+      it('should default "urlRoot" property to "/api/samples"', function() {
+        (2).should.equal(2);
+
+
+
+      });
     });
-})();
+
+  });
+
+});

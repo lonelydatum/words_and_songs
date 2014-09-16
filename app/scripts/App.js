@@ -10,7 +10,7 @@ define(function(require){
 
 	api.start = function(){
 
-		Controller.start('gar liu was here');
+		Controller.start();
 		View.start();
 
 

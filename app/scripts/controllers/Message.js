@@ -4,33 +4,32 @@ define(function(require){
 
 	var Signals = require('signals');
 	var Word = require('controllers/Word');
+	var Helper = require('Helper');
 
 
-	var api = { };
-	api.message = '';
-	api.words = [];
-	api.signals = {
-		messageChanged: new Signals()
+	var Message = {
+		id: "Message"
 	};
 
-	api.getMessage = function(){ return this.message; };
-	api.getWords = function(){ return this.words; };
-
-	api.setMessage = function(message){
-		this.message = message;
-		this.words = [];
 
 
-		var messageSplit = this.message.split(' ');
-		messageSplit.forEach(function(wordItem, index){
-			var word = Word.create(wordItem, index, messageSplit.length);
-			this.words.push(word);
-		}, this);
-
-		console.log(this);
 
 
-		api.signals.messageChanged.dispatch(api);
+
+
+	var api = {};
+	api.create = function(dna, queueMe, queueTotal){
+		// var newMessage = Object.create(Message);
+		// newMessage.init(dna, queueMe, queueTotal);
+
+		var newMessage = Object.create(Message);
+		newMessage.list = Helper.createChildren( Word, dna.split(' ') );
+		newMessage.dna = dna;
+		newMessage.queueMe = queueMe;
+		newMessage.queueTotal = queueTotal;
+
+
+		return newMessage;
 	};
 
 	return api;
