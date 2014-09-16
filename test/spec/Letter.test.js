@@ -1,4 +1,5 @@
-/* global define, xdescribe, describe, it */
+/* global define, describe, it */
+/*jshint expr:true */
 define(function(require) {
 	'use strict';
 	// var Letter = require('controllers/Letter');

@@ -3,7 +3,7 @@ define(function(require){
 	'use strict';
 
 	var Story = require('controllers/Story');
-	var Message = require('controllers/Message');
+
 
 
 

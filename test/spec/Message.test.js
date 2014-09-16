@@ -1,4 +1,5 @@
-/* global define, xdescribe, describe, it, beforeEach */
+/* global define, describe, it, beforeEach */
+/*jshint expr:true */
 define(function(require){
 	'use strict';
 

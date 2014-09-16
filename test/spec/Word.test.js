@@ -1,4 +1,5 @@
 /*global define, it, describe, beforeEach*/
+/*jshint expr:true */
 define(function(require){
 	'use strict';
 

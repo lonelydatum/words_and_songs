@@ -1,5 +1,5 @@
 /*global define*/
-define(function(require){
+define(function(){
 	'use strict';
 
 
@@ -12,7 +12,7 @@ define(function(require){
 
 
 
-		var pos = { x:0, y:0 };
+		// var pos = { x:0, y:0 };
 
 
 
@@ -36,7 +36,7 @@ define(function(require){
 		}, this);
 
 		return children;
-	}
+	};
 
 
 

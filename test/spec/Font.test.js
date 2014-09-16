@@ -1,4 +1,5 @@
-/* global define, describe, xdescribe, it */
+/* global define, describe, it */
+/* jshint loopfunc:true */
 define(function(require){
 	'use strict';
 
