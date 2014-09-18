@@ -7,13 +7,14 @@ define(function(require){
 
 
 
-	function Letter(dna, queueMe, queueTotal){
-		this.dna = dna;
+	function Letter( content, mommy, queue){
+		this.content = content;
 
-		this.queueMe = queueMe;
-		this.queueTotal = queueTotal;
+		this.queue = queue;
 
-		this.font = Font.getCharacter(dna);
+
+		this.font = Font.getCharacter(content);
+
 
 		var pos = { x:0, y:0 };
 
@@ -22,12 +23,18 @@ define(function(require){
 		    get: function() { return this.font.width; },
 		});
 
+		Object.defineProperty(this, 'padding', {
+		    get: function() { return 30; },
+		});
+
 		Object.defineProperty(this, 'x', {
 		    get: function() { return pos.x; },
 		    set: function(value) { pos.x = value; },
 		});
 
 	}
+
+
 
 
 

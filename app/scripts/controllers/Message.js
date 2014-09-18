@@ -8,13 +8,25 @@ define(function(require){
 
 
 
-	function Message( dna, queueMe, queueTotal ){
-		Basic.call(this, dna, queueMe, queueTotal);
-		this.list = this.makeBabies(Word, dna.split(' ') );
+	function Message( content, mommy, queue ){
+
+		this.id = 'Message';
+		this.mommy = mommy;
+		this.queue = queue;
+
+
+		var children = this.createChildObj();
+		children.module = require('controllers/Word');
+		children.content = content.split(' ');
+		Basic.call(this, content, children);
 	}
 
 	Message.prototype = Object(Basic.prototype);
 	Message.prototype.constructor = Message;
+
+	Message.prototype.words = function(index){
+		return this.getChildAt(index);
+	}
 
 	return Message;
 

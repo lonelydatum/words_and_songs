@@ -5,16 +5,15 @@ define(function(require){
 	var Story = require('controllers/Story');
 
 
+	function Controller(){
+		var content = [ 'abcdefghijk lmnopqrst uvwxyz' ];
+		var story = new Story(content);
 
 
-	var api = { };
-	api.id = 'Controller';
-	api.start = function(){
-		var story = [ 'Row row row your boat.', 'Gently down the stream.', 'Merrily Merrily Merrily Merrily Merrily.', 'Life is but a dream.' ];
+		Object.defineProperty( this, 'story', {
+			get: function() { return story; }
+		} );
+	}
 
-		var s = new Story(story);
-		console.log(s);
-
-	};
-	return api;
+	return Controller;
 });

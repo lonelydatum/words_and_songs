@@ -1,10 +1,25 @@
 /*global define*/
-define(function(){
+define(function( require ){
 	'use strict';
 
-	var api = { };
-	api.start = function(){
+	var Paper = require('views/Paper');
 
-	};
-	return api;
+	var _story;
+	var _paper;
+
+	function View( controller ){
+		_story = controller.story;
+		_paper = new Paper( _story );
+	}
+
+	function draw(){
+
+	}
+
+
+
+
+
+
+	return View;
 });

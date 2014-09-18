@@ -10,8 +10,12 @@ define(function(require){
 
 	api.start = function(){
 
-		Controller.start();
-		View.start();
+		var controller = new Controller();
+		var view = new View( controller );
+
+		window.c = controller;
+
+
 
 
 	};
