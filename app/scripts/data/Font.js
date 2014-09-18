@@ -11,6 +11,7 @@ define(function(){
 
 		getCharacter: function(character){
 			var abc = this.characters.abc;
+
 			if(!abc[character]){
 				if(!this.settings.supportsUpperCase && this.settings.supportsLowerCase){
 					character = character.toLowerCase();
@@ -19,11 +20,25 @@ define(function(){
 				}
 
 			}
-
-			return abc[character];
+			if(abc[character]){
+				return abc[character];	
+			}else{
+				return this.characters.special.notfound;
+			}
+			
 		},
 
+
+
 		characters:{
+			special:{
+				notfound: {
+					id: 'notfound',
+					width: 11,
+					height: 11,
+					points: [ [[], [] ] ]
+				}
+			},
 			abc:{
 				A: {
 					id: 'A',
@@ -146,7 +161,7 @@ define(function(){
 				},
 
 				S: {
-					id: 's',
+					id: 'S',
 					width: 125,
 					height: 200,
 					points: [ [ [125,0], [0,0], [0,100], [125,100], [125,200], [0,200] ] ]

@@ -11,52 +11,51 @@ define(function(require){
 
 	describe('Message', function() {
 
-		var _message = null;
-		var _dna = 'One two three your boat.';
-
-		beforeEach(function(){
-			_message = new Message(_dna, 0, 4);
-		});
-
-
+		
+		
+		
 
 
 		describe('Message basics', function() {
+			var q = {me:0, total:4};
+			var m = new Message( 'One two three your boat.', null, q );
 			it('has property queueMe, queueTotal', function() {
-				console.log(_message);
-				expect(_message).to.have.property('queueMe');
-				expect(_message).to.have.property('queueTotal');
-
-				expect(_message).to.have.property('list');
-				expect(_message).to.have.property('dna');
+				
+				console.log(m);
+				expect(m).to.have.property('queue');
+				expect(m.queue).to.have.property('me');
+				expect(m.queue).to.have.property('total');
+				
+				expect(m).to.have.property('children');
+				expect(m.children).to.have.property('list');
+				expect(m.children).to.have.property('module');
+				
 			});
 
 			it('queueMe===0', function() {
-				expect(_message.queueMe).to.equal(0);
-				expect(_message.queueTotal).to.equal(4);
+				expect(m.queue.me).to.equal(0);
+				expect(m.queue.total).to.equal(4);
 			});
 		});
 
 		describe('Message children', function() {
+			var q = {me:0, total:4};
+			var m = new Message( 'One two three your boat.', null, q );
+
 			it('list is an array', function() {
-				expect(_message.list).to.be.instanceof(Array);
+				expect(m.children.list).to.be.instanceof(Array);
 			});
 			it('total words in message', function() {
-				expect(_message.list.length).to.be.equal(5);
+				expect(m.totalChildren).to.be.equal(5);
 			});
 
 			it('The first word has no chain', function() {
-				expect(_message.list[0].chain).to.be.undefined;
+				expect(m.words(0).chain).to.be.undefined;
 			});
 			it('The second word is chained to the first word', function() {
-				expect(_message.list[1].chain).to.equal(_message.list[0]);
+				expect(m.words(1).chain).to.equal(m.words(0));
 			});
-
-
-
-
 		});
-
 
 
 	});

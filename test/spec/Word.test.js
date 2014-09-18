@@ -16,7 +16,11 @@ define(function(require){
 
 
 
+
 		_word = new Word(_dna, 0, 4);
+
+		var _childrenList = _word.children.list;
+
 
 		beforeEach(function(){
 
@@ -25,41 +29,28 @@ define(function(require){
 
 
 
-
-		// describe('Calculate positions', function() {
-		// 	it('x positions', function(){
-		// 		var wordWidth = 0;
-
-
-		// 		_word.list.forEach(function(letter){
-		// 			wordWidth += letter.width;
-		// 		});
-
-		// 	});
-		// });
-
 		describe('Word Basics', function() {
 			it('the word can not contain spaces', function() {
-				expect(_word.dna).to.not.contain(' ');
+				expect(_word.content).to.not.contain(' ');
 			});
 
 
 			it('the word to be Row', function() {
-				expect(_word.dna).to.equal(_dna);
+				expect(_word.content).to.equal(_dna);
 			});
 
 			it('3 letters', function() {
-				expect(_word.list.length).to.equal(_dna.split('').length);
+				expect(_childrenList.length).to.equal(_dna.split('').length);
 			});
 		});
 
 
 		describe('Word Children', function() {
 			it('first letter doesnt have chain', function() {
-				expect(_word.list[0].chain).to.be.undefined;
+				expect(_childrenList[0].chain).to.be.undefined;
 			});
 			it('second letter is the same as the first', function() {
-				expect(_word.list[1].chain).to.equal(_word.list[0]);
+				expect(_childrenList[1].chain).to.equal(_childrenList[0]);
 			});
 		});
 

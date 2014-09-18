@@ -14,6 +14,12 @@ define(function(){
 		if(children){
 			this.makeBabies( children );
 		}
+
+		Object.defineProperty( this, 'totalChildren', {
+			get: function(){
+				return (children) ? children.list.length : 0;
+			}
+		} )
 	}
 
 
@@ -26,11 +32,11 @@ define(function(){
 
 
 	Basic.prototype.createChildObj = function(){
-
 		var children = {module:null, content:null, list:[] };
 		return Object.create(children);
-
 	}
+
+
 
 	Basic.prototype.makeBabies = function( children ){
 

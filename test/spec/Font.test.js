@@ -27,7 +27,7 @@ define(function(require){
 
 			it('the key and id should match', function(){
 				for (var key in _abc) {
-					expect(_abc[key].id).to.equal(key);
+					expect(_abc[key].id).to.equal(key);					
 				}
 			});
 
@@ -52,6 +52,14 @@ define(function(require){
 					var points = _abc[key].points;
 					expect(points.length).to.be.at.least(1);
 				}
+			});
+
+			it('handles characters not in the list', function(){
+
+				var character = ".";
+				var font = Font.getCharacter(character);
+				expect(font).to.equal( Font.characters.special.notfound );
+				
 			});
 
 
