@@ -4,144 +4,94 @@ define(function( require ){
 
 	var PIXI = require('pixi');
 	var TweenMax = require('TweenMax');
+	var Signals = require('signals');
 
-	var Line = require('views/Line');
+	
 	var Common = require('data/Common');
 
-	var _stage = null;
-	var _container;
-	var _graphics;
-	var _index = -1;
+	
+	
+	
+	
+	
+	
+	var RATIO_SPEED = 555;
 
 	var Letter = function( data ){
-		this.data = data;
-		_container = new PIXI.DisplayObjectContainer();
 
-		_graphics = new PIXI.Graphics();		
-		_container.addChild(_graphics);
-		_stage = Common.stage;
+		PIXI.DisplayObjectContainer.call(this);
 
-		_stage.addChild(_container);
-		makeLetter(this.data);
+		var _data = data;
+		var _index = -1;
+		var _graphics = new PIXI.Graphics();	
+		var _signal = {
+			doneAnimate: new Signals()
+		} 
+		
+		Object.defineProperty(this, 'onDoneAnimate', { get: function() { return _signal.doneAnimate; } });
+		Object.defineProperty(this, 'xPos', { get: function() { return _data.x; } });
+		Object.defineProperty(this, 'data', { get: function() { return _data; } });
+		Object.defineProperty(this, 'graphics', { get: function() { return _graphics; }	});
+		Object.defineProperty(this, 'index', {
+		    get: function() { return _index; },
+		    set: function(value) { _index = value; },
+		});
+		
 
+
+		
+		
+
+		this.linesThatHaveAlreadyBeenDrawn = [];
+		this.addChild( this.graphics);
+		
 
 
 	}
 
+	Letter.prototype = Object.create( PIXI.DisplayObjectContainer.prototype );
+	Letter.prototype.constructor = Letter;
+
 	
-	function animateNext(){
-		_index++;
-		var line = _lines[_index];
-		if(!line) {
-			console.log(_index);
-			return;
+	Letter.prototype.startAnimation = function(){
+		this.animateNextLine();
+	}
+
+	Letter.prototype.animateNextLine = function(){
+		this.index++;
+		var nextLine = this.data.lines[this.index];
+
+		
+
+
+		if(nextLine) {
+			var signals = nextLine.animate( nextLine.getTime( RATIO_SPEED ) );
+			signals.onUpdate.add(function(ppp){
+				 this.graphics.clear();
+		    	 this.graphics.lineStyle(1, 0xffffff, 1);
+		    	this.linesThatHaveAlreadyBeenDrawn.forEach( function(lineItem){	    		
+		    		 this.graphics.moveTo(lineItem[0].x, lineItem[0].y);
+		    		 this.graphics.lineTo(lineItem[1].x, lineItem[1].y);
+		    	}, this )
+
+				 this.graphics.moveTo(nextLine.p1.x, nextLine.p1.y);
+		    	 this.graphics.lineTo(ppp.x, ppp.y);
+		    	 this.graphics.endFill();
+
+				
+			}, this);
+
+			signals.onComplete.add(function(p){			
+				this.linesThatHaveAlreadyBeenDrawn.push(nextLine.points);
+				this.animateNextLine();
+			}, this);
 		}else{
-			animateLine(line);
+			this.onDoneAnimate.dispatch()
+			// no more to animate
 		}
 	}
 
 
-	function makeLetter(letter){
-		var timeline = new TimelineMax();
-
-		letter.font.points.forEach(function(line){			
-			var line = letterStroke(line);
-			_lines.push(line);
-			// timeline.add(tl);
-
-		});
-
-		animateNext();
-		
-	}
-
-
-
-	var _lines = [];
-
-	function letterStroke(points){
-		
-
-		var prev = null;
-		var twoPoints = [];
-		
-
-		var timeline = new TimelineMax();
-		var line = null;
-
-		points.forEach(function(p, index){
-
-
-			twoPoints.push(p);
-
-			// we need to points to draw a line
-
-			if(twoPoints.length===2){
-				var p1 = new PIXI.Point(twoPoints[0][0], twoPoints[0][1]);
-				var p2 = new PIXI.Point(twoPoints[1][0], twoPoints[1][1]);
-				line = new Line(p1, p2);
-				
-				
-
-				
-				
-				// now that we have already draw the line from the 2 elements in the array, 
-
-				// lets remove just the first element and move the second to the first index.
-				twoPoints.splice(0, 1);
-				
-			}
-		})
-
-		return line;
-		
-	}
-
-
-	
-	var _____drawnAlready = [];
-
-
-	function animateLine(liner){
-		
-
-
-		var dist = liner.distance();
-		var ratio = 300;
-		var time = dist/ratio;
-
-
-
-		var signals = liner.animate();
-		signals.onUpdate.add(function(ppp){
-			_graphics.clear();
-	    	_graphics.lineStyle(1, 0xffffff, 1);
-	    	_____drawnAlready.forEach( function(lineItem){	    		
-	    		_graphics.moveTo(lineItem[0].x, lineItem[0].y);
-	    		_graphics.lineTo(lineItem[1].x, lineItem[1].y);
-	    	} )
-
-			_graphics.moveTo(liner.p1.x, liner.p1.y);
-	    	_graphics.lineTo(ppp.x, ppp.y);
-	    	_graphics.endFill();
-
-			
-		});
-
-		signals.onComplete.add(function(p){			
-			_____drawnAlready.push(liner.points);
-			animateNext();
-		});
-
-
-
-	    _container.addChild(_graphics);
-
-
-
-
-
-	}
 
 
 	return Letter;

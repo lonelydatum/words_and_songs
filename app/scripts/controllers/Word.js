@@ -3,7 +3,7 @@ define(function(require){
 	'use strict';
 
 
-	var Letter = require('controllers/Letter');
+	var Letter = require('controllers/Letter.Controller');
 	var Basic = require('controllers/Basic');
 
 
@@ -13,7 +13,7 @@ define(function(require){
 		this.queue = queue;
 
 		var children = this.createChildObj();
-		children.module = require('controllers/Letter');
+		children.module = Letter;
 		children.content = content.split('');
 
 		Basic.call(this, content, children);
@@ -24,7 +24,6 @@ define(function(require){
 		this.children.list.forEach( function(letter){
 			letter.x = width;
 			width += letter.width + letter.padding;
-
 		} )
 
 

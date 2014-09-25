@@ -14,6 +14,11 @@ define(function(require){
 		
 	}
 
+	Line.prototype.getTime = function(ratio){	
+		var dist = this.distance();		
+		var time = dist/ratio;
+		return time;
+	}
 
 	Line.prototype.distance = function(){
 		var xx = Math.pow((this.p2.x - this.p1.x), 2);
@@ -22,13 +27,13 @@ define(function(require){
 		return distance;
 	};
 
-	Line.prototype.animate = function(){
+	Line.prototype.animate = function( time ){
 		var p1Clone = this.p1.clone();
 		var signals = {
 			onUpdate: new Signals(),
 			onComplete: new Signals()
 		}
-		var tween = TweenLite.to( p1Clone, 1, {x:this.p2.x, y:this.p2.y, 
+		var tween = TweenLite.to( p1Clone, time, {x:this.p2.x, y:this.p2.y, 
 			onComplete: function(){
 				signals.onComplete.dispatch( )
 			},
