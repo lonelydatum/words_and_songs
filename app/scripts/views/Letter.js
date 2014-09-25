@@ -16,6 +16,7 @@ define(function( require ){
 	var Letter = function( data ){
 		this.data = data;
 		_container = new PIXI.DisplayObjectContainer();
+
 		_graphics = new PIXI.Graphics();		
 		_container.addChild(_graphics);
 		_stage = Common.stage;
@@ -24,8 +25,6 @@ define(function( require ){
 		makeLetter(this.data);
 
 
-
-		
 
 	}
 
@@ -44,10 +43,12 @@ define(function( require ){
 
 	function makeLetter(letter){
 		var timeline = new TimelineMax();
+
 		letter.font.points.forEach(function(line){			
 			var line = letterStroke(line);
 			_lines.push(line);
 			// timeline.add(tl);
+
 		});
 
 		animateNext();
@@ -55,10 +56,12 @@ define(function( require ){
 	}
 
 
+
 	var _lines = [];
 
 	function letterStroke(points){
 		
+
 		var prev = null;
 		var twoPoints = [];
 		
@@ -67,11 +70,12 @@ define(function( require ){
 		var line = null;
 
 		points.forEach(function(p, index){
-			
+
 
 			twoPoints.push(p);
 
 			// we need to points to draw a line
+
 			if(twoPoints.length===2){
 				var p1 = new PIXI.Point(twoPoints[0][0], twoPoints[0][1]);
 				var p2 = new PIXI.Point(twoPoints[1][0], twoPoints[1][1]);
@@ -82,6 +86,7 @@ define(function( require ){
 				
 				
 				// now that we have already draw the line from the 2 elements in the array, 
+
 				// lets remove just the first element and move the second to the first index.
 				twoPoints.splice(0, 1);
 				
@@ -101,17 +106,10 @@ define(function( require ){
 		
 
 
-		
 		var dist = liner.distance();
 		var ratio = 300;
 		var time = dist/ratio;
 
-
-
-		
-
-
-		
 
 
 		var signals = liner.animate();
@@ -122,7 +120,7 @@ define(function( require ){
 	    		_graphics.moveTo(lineItem[0].x, lineItem[0].y);
 	    		_graphics.lineTo(lineItem[1].x, lineItem[1].y);
 	    	} )
-	    	
+
 			_graphics.moveTo(liner.p1.x, liner.p1.y);
 	    	_graphics.lineTo(ppp.x, ppp.y);
 	    	_graphics.endFill();
@@ -135,6 +133,9 @@ define(function( require ){
 			animateNext();
 		});
 
+
+
+	    _container.addChild(_graphics);
 
 
 
