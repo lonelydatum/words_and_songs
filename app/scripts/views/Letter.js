@@ -4,119 +4,142 @@ define(function( require ){
 
 	var PIXI = require('pixi');
 	var TweenMax = require('TweenMax');
+
+	var Line = require('views/Line');
 	var Common = require('data/Common');
 
 	var _stage = null;
 	var _container;
 	var _graphics;
+	var _index = -1;
 
 	var Letter = function( data ){
 		this.data = data;
 		_container = new PIXI.DisplayObjectContainer();
 		_graphics = new PIXI.Graphics();		
+		_container.addChild(_graphics);
 		_stage = Common.stage;
 
 		_stage.addChild(_container);
 		makeLetter(this.data);
+
+
+
 		
 
+	}
+
+	
+	function animateNext(){
+		_index++;
+		var line = _lines[_index];
+		if(!line) {
+			console.log(_index);
+			return;
+		}else{
+			animateLine(line);
+		}
 	}
 
 
 	function makeLetter(letter){
-
-		// _x = (letter.x/1) + 20;
 		var timeline = new TimelineMax();
 		letter.font.points.forEach(function(line){			
-			var tl = letterStroke(letter, line);
-			timeline.add(tl);
+			var line = letterStroke(line);
+			_lines.push(line);
+			// timeline.add(tl);
 		});
-		return timeline;
+
+		animateNext();
+		
 	}
 
-	function letterStroke(letter, points){
+
+	var _lines = [];
+
+	function letterStroke(points){
 		
 		var prev = null;
-		var pairCurr = [];
-		var pairPrev = [];
+		var twoPoints = [];
+		
 
 		var timeline = new TimelineMax();
+		var line = null;
 
 		points.forEach(function(p, index){
 			
 
-			pairCurr.push(p);
+			twoPoints.push(p);
 
 			// we need to points to draw a line
-			if(pairCurr.length===2){
-				var p1 = new PIXI.Point(pairCurr[0][0], pairCurr[0][1]);
-				var p2 = new PIXI.Point(pairCurr[1][0], pairCurr[1][1]);
+			if(twoPoints.length===2){
+				var p1 = new PIXI.Point(twoPoints[0][0], twoPoints[0][1]);
+				var p2 = new PIXI.Point(twoPoints[1][0], twoPoints[1][1]);
+				line = new Line(p1, p2);
 				
-				var tween = animateLine(p1, p2);
-				console.log(tween);
+				
 
-				timeline.add(tween);
+				
+				
 				// now that we have already draw the line from the 2 elements in the array, 
 				// lets remove just the first element and move the second to the first index.
-				pairCurr.splice(0, 1);
+				twoPoints.splice(0, 1);
+				
 			}
 		})
 
-		return timeline;
-
-
+		return line;
+		
 	}
 
-	var _drawnAlready = [];
 
-	function animateLine(p1, p2){
+	
+	var _____drawnAlready = [];
 
 
-		var line = [p1, p2];
-		_drawnAlready.push(line);
+	function animateLine(liner){
+		
 
-		var xx = Math.pow((p2.x - p1.x), 2);
-		var yy = Math.pow((p2.y - p1.y), 2);
-		var dist = Math.sqrt(xx + yy);
+
+		
+		var dist = liner.distance();
 		var ratio = 300;
 		var time = dist/ratio;
 
-		
-
-
-		var p = p1.clone();
 
 
 		
 
+
 		
 
-		// graphics.x = _x;
-		// graphics.y = _y;
-		
-	    var tween = TweenMax.to(p,time,{x:p2.x, y:p2.y, onUpdate:function(){
-	    	_graphics.clear();
-	    	_graphics.lineStyle(7, 0xffffff, 1);
-	    	_drawnAlready.forEach( function(lineItem){
 
+		var signals = liner.animate();
+		signals.onUpdate.add(function(ppp){
+			_graphics.clear();
+	    	_graphics.lineStyle(1, 0xffffff, 1);
+	    	_____drawnAlready.forEach( function(lineItem){	    		
 	    		_graphics.moveTo(lineItem[0].x, lineItem[0].y);
 	    		_graphics.lineTo(lineItem[1].x, lineItem[1].y);
 	    	} )
 	    	
-			_graphics.moveTo(p1.x, p1.y);
-	    	_graphics.lineTo(p.x, p.y);
+			_graphics.moveTo(liner.p1.x, liner.p1.y);
+	    	_graphics.lineTo(ppp.x, ppp.y);
 	    	_graphics.endFill();
 
-	    	// console.log(_container);
-			_container.addChild(_graphics);
+			
+		});
 
-	    }});
+		signals.onComplete.add(function(p){			
+			_____drawnAlready.push(liner.points);
+			animateNext();
+		});
 
 
 
 
 
-	    return tween;
+
 	}
 
 

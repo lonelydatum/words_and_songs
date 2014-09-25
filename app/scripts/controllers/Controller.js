@@ -6,7 +6,7 @@ define(function(require){
 
 
 	function Controller(){
-		var content = [ 'e' ];
+		var content = [ 'X' ];
 		var story = new Story(content);
 
 
