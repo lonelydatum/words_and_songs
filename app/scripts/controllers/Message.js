@@ -3,7 +3,7 @@ define(function(require){
 	'use strict';
 
 
-	var Word = require('controllers/Word');
+	var Word = require('controllers/Word.Controller');
 	var Basic = require('controllers/Basic');
 
 
@@ -16,7 +16,7 @@ define(function(require){
 
 
 		var children = this.createChildObj();
-		children.module = require('controllers/Word');
+		children.module = Word;
 		children.content = content.split(' ');
 		Basic.call(this, content, children);
 	}

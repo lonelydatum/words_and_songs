@@ -11,7 +11,7 @@ define(function( require ){
 
 	
 	
-	
+
 	
 	
 	
@@ -28,6 +28,8 @@ define(function( require ){
 			doneAnimate: new Signals()
 		} 
 		
+		Object.defineProperty(this, 'content', { get: function() { return _data.content; } });
+		Object.defineProperty(this, 'width', { get: function() { return _data.width+_data.padding; } });
 		Object.defineProperty(this, 'onDoneAnimate', { get: function() { return _signal.doneAnimate; } });
 		Object.defineProperty(this, 'xPos', { get: function() { return _data.x; } });
 		Object.defineProperty(this, 'data', { get: function() { return _data; } });

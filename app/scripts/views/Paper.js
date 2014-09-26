@@ -7,8 +7,9 @@ define(function(require){
 
 
 	var Common = require('data/Common');
-	var Message = require('controllers/Message');
-	var Letter = require('views/Letter');
+	var Message = require('views/Message');
+	
+	
 
 
 
@@ -19,7 +20,7 @@ define(function(require){
 	var _x = 0;
 	var _y = 20;
 	var _letters = [];
-	var _lettersIndex = -1;
+	
 
 	function Paper( story ){
 		_story = story;
@@ -33,42 +34,19 @@ define(function(require){
 	}
 
 	function makeMessage(){
-		var message = _story.messages(0);
-		
-		message.children.list.forEach(function(word){
-			makeWord(word);		
-		})
+		var messageData = _story.messages(0);	
+		var message = new Message( messageData );
 
-		animateNextLetter();
+		_stage.addChild( message );
+
+		
 		
 
 	}
 
-	function animateNextLetter(){
-		_lettersIndex++;
-		var letterNext = _letters[_lettersIndex];
-		if(letterNext){
-			letterNext.onDoneAnimate.addOnce(function(){
-				animateNextLetter();
-			})
-			letterNext.startAnimation();			
-		}
-	}
+	
 
-	function makeWord(word){
-		word.children.list.forEach(function(letterData){
-			var letter = new Letter( letterData );	
-			_letters.push(letter);
-			letter.onDoneAnimate.addOnce(function(){
-				console.log(this.data.content);
-			}, letter)
-			letter.x = letter.xPos;
-			
-			_stage.addChild( letter );
-		});
-		_y += (300/1);
-		
-	}
+	
 
 
 
