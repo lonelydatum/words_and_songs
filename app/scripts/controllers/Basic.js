@@ -67,7 +67,25 @@ define(function(){
 						_offset.y += value;
 						childItem.offsetY = value;
 					})
+				}else{
+					_offset.y += value;
 				}
+			}
+		});
+
+
+
+
+
+
+
+		var _sibling;
+		Object.defineProperty( this, 'sibling', {
+			get: function(){
+
+				return _.filter(this.mommy.children, function(childItem){
+					return (childItem!==this);
+				}, this)
 			}
 		});
 	}
@@ -79,8 +97,7 @@ define(function(){
 
 
 	Basic.prototype.getChildAt = function(index){
-		if(index >= this.children.length) throw this.id + " Module of "+ index+' is not in the range of 0 and ' + this.children.list.length;
-		return this.children[index];
+		return (index >= this.children.length) ? false : this.children[index];
 	}
 
 
@@ -95,7 +112,8 @@ define(function(){
 			var mommy = this;
 			var child = new Child( contentItem, mommy, queue );
 
-			child.chain = this.children[this.children.length-1];
+			child.chain = _children_[_children_.length-1];
+
 			_children_.push(child);
 
 

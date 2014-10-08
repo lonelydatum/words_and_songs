@@ -16,6 +16,11 @@ define(function(require){
 		var point_1 = this.children[0];
 		var point_2 = this.children[1];
 
+		// point_1.sibling = point_2;
+		// point_2.sibling = point_1;
+
+
+
 		Object.defineProperty( this, 'p1', {get: function(){ return point_1 } });
 		Object.defineProperty( this, 'p2', {get: function(){ return point_2 } });
 		Object.defineProperty( this, 'getLetter', { value: this.mommy.mommy } );

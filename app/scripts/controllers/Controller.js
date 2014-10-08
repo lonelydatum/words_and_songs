@@ -6,8 +6,13 @@ define(function(require){
 
 
 	function Controller(){
-		var content = [ 'expressive' ];
-		var story = new Story(content);
+		var main = [
+			{ message: 'abcdefg hijkl', time: 2000 },
+			// { message: 'hell keep going', time: 2000 },
+		]
+
+
+		var story = new Story(main);
 
 		Object.defineProperty( this, 'story', {
 			get: function() { return story; }

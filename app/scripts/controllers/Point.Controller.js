@@ -5,10 +5,13 @@ define(function(){
 	var PIXI = require('pixi');
 	var Basic = require('controllers/Basic');
 	var TweenMax = require('TweenMax');
+	var Signals = require('signals');
 
 	function Point( content, mommy, queue ){
 
-
+		var _signals = {
+			tweenDone: new Signals()
+		}
 
 
 		Basic.call(this, content, mommy, queue, 'POINT');
@@ -45,6 +48,7 @@ define(function(){
 		Object.defineProperty( _to, '_y', {
 			get: function(){ return _to.y+me.offsetY;  }
 		});
+		Object.defineProperty( this, 'signals', { value: _signals });
 
 
 
@@ -57,9 +61,66 @@ define(function(){
 	Point.prototype = Object(Basic.prototype);
 	Point.prototype.constructor = Point;
 
-	Point.prototype.tween = function(newFromPoint, time, delay){
-		this.from = newFromPoint;
-		TweenLite.to( this.from, time, { x:this.to.x, y:this.to.y, ease:Strong.easeOut, delay:delay });
+	Point.prototype.tween = function(fromPointType, speed, delay ){
+
+		this.signals.tweenDone.active = true;
+
+		var fromTo = this[ fromPointType ]();
+
+		this.from.x = fromTo.from.x;
+		this.from.y = fromTo.from.y;
+		this.to.x = fromTo.to.x;
+		this.to.y = fromTo.to.y;
+
+
+		var xx = (fromTo.from.x-fromTo.to.x);
+		var yy = (fromTo.from.y-fromTo.to.y);
+		var distance = Math.sqrt(Math.pow(xx, 2) + Math.pow(yy, 2));
+
+		var time = distance/speed;
+
+
+
+
+		var tween = TweenLite.to( this.from, time, {
+			x:fromTo.to.x,
+			y:fromTo.to.y,
+			delay: delay,
+			ease:Strong.easeOut,
+			onCompleteScope: this,
+			onComplete: function(){
+
+				this.signals.tweenDone.dispatch(this);
+
+			}
+		})
+
+
+		return tween;
+
+	}
+
+	Point.prototype.reset = function(){
+		this.from = this.content.clone();
+		this.to = this.content.clone();
+	}
+
+	Point.prototype.FROM_SIBLING_TO_HERE = function(){
+		// this only works if this point is P2
+		if(this.queue.me===1){
+			return {from:this.sibling[0].to, to:this.to};
+		}else{
+			throw "This current point is not P2. I know this because it has a chain."
+		}
+	}
+
+	Point.prototype.FROM_HERE_TO_SIBLING = function(){
+		// this only works if this point is P2
+		if(this.queue.me===1){
+			return {from:this.to, to:this.sibling[0].content};
+		}else{
+			throw "This current point is not P2. I know this because it has a chain."
+		}
 	}
 
 

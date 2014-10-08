@@ -8,6 +8,7 @@ define(function(require){
 
 	var Common = require('data/Common');
 	var Everywhere = require('common/Everywhere');
+	var TweenController = require('controllers/Tween.Controller');
 
 
 
@@ -21,7 +22,8 @@ define(function(require){
 
 
 	var _lines = [];
-
+	var _messageIndex = -1;
+	var _tween;
 
 
 
@@ -33,37 +35,64 @@ define(function(require){
 		document.body.appendChild(_renderer.view);
 		requestAnimFrame(animate);
 
-		getAllLines();
-		tweenLine();
-	}
-
-
-	function getAllLines(){
 		Everywhere.graphic.x = 11;
 		Everywhere.graphic.y = 11;
 		_stage.addChild( Everywhere.graphic );
-		_story.children.forEach(function(messageItem){
-			messageItem.children.forEach(function(wordItem){
-				wordItem.children.forEach(function(letterItem){
-					letterItem.children.forEach(function(strokeItem){
-						strokeItem.children.forEach(function(lineItem){
-							_lines.push(lineItem);
-						})
+
+		_tween = new TweenController();
+		createNextMessage();
+
+	}
+
+	var _message;
+	function createNextMessage(){
+		_messageIndex++;
+
+		_message = _story.messages( _messageIndex );
+
+		if(!_message) {
+			// _messageIndex = 0;
+			// _message = _story.messages( _messageIndex );
+		};
+
+
+
+
+
+
+
+		var signalDone = _tween.lines( getAllLines( _message ) );
+		signalDone.addOnce(function(){
+
+
+			setTimeout(function(){
+
+				// createNextMessage();
+			}, _message.time)
+
+
+		}, this)
+	}
+
+
+	function getAllLines( message ){
+		_lines = [];
+
+		message.children.forEach(function(wordItem){
+			wordItem.children.forEach(function(letterItem){
+				letterItem.children.forEach(function(strokeItem){
+					strokeItem.children.forEach(function(lineItem){
+						_lines.push(lineItem);
 					})
 				})
 			})
 		})
+		return _lines;
 	}
 
-	function tweenLine () {
 
-		_lines.forEach(function(lineItem, index){
-			var percent = (index+1)/_lines.length;
-			var delay = percent * 3;
 
-			lineItem.p2.tween( lineItem.p1.to, .5, delay );
-		})
-	}
+
 
 
 
@@ -79,6 +108,7 @@ define(function(require){
 			Everywhere.graphic.lineStyle(1, 0xff1144, 1);
 			Everywhere.graphic.moveTo(p1._x, p1._y);
 			Everywhere.graphic.lineTo(p2._x, p2._y);
+			// console.log(p2._y);
 			Everywhere.graphic.endFill();
 
 		})

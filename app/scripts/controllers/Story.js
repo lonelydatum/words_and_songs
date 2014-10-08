@@ -11,6 +11,7 @@ define(function(require){
 
 		this.id = 'STORY';
 		Basic.call(this, content);
+
 		this.createChildren( Message, content)
 	}
 
