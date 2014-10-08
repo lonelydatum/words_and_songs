@@ -8,11 +8,8 @@ define(function(require){
 
 
 	function Word( content, mommy, queue ){
-		this.id = 'WORD';
-		this.mommy = mommy;
-		this.queue = queue;
 
-		Basic.call(this, content);
+		Basic.call(this, content, mommy, queue, 'WORD');
 		this.createChildren( Letter, content.split('') );
 
 
@@ -26,31 +23,8 @@ define(function(require){
 			_widthOfChildren += letter.width + letter.padding;
 		}, this );
 
-
-		Object.defineProperty(this, 'width', { get: function() { return _widthOfChildren; } });
-		Object.defineProperty(this, 'height', { get: function() { return _maxHeight; } });
-
-
-		var _offset = {x:0, y:0 };
-		Object.defineProperty( this, 'offsetX', {
-			get: function(){ return _offset.x },
-			set: function(value){
-				this.children.forEach(function(letterItem){
-					letterItem.offsetX = value;
-				})
-			}
-		});
-
-		Object.defineProperty( this, 'offsetY', {
-			get: function(){ return _offset.y },
-			set: function(value){
-				this.children.forEach(function(letterItem){
-					letterItem.offsetY = value;
-				})
-			}
-		});
-
-
+		this.width = _widthOfChildren;
+		this.height = _maxHeight;
 	}
 
 

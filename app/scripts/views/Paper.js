@@ -9,7 +9,6 @@ define(function(require){
 	var Common = require('data/Common');
 	var Everywhere = require('common/Everywhere');
 
-	var Message = require('views/Message');
 
 
 
@@ -28,22 +27,21 @@ define(function(require){
 
 	function Paper( story ){
 		_story = story;
-		Common.stage = new PIXI.Stage(0x000000);
+		Common.stage = new PIXI.Stage(0x111111);
 		_stage = Common.stage;
-		_renderer = PIXI.autoDetectRenderer(1700, 1000);
+		_renderer = PIXI.autoDetectRenderer(Common.stageWidth, Common.stageHeight);
 		document.body.appendChild(_renderer.view);
 		requestAnimFrame(animate);
-		makeMessage();
+
+		getAllLines();
+		tweenLine();
 	}
 
 
-	function makeMessage(){
-
-
-
-
+	function getAllLines(){
+		Everywhere.graphic.x = 11;
+		Everywhere.graphic.y = 11;
 		_stage.addChild( Everywhere.graphic );
-
 		_story.children.forEach(function(messageItem){
 			messageItem.children.forEach(function(wordItem){
 				wordItem.children.forEach(function(letterItem){
@@ -55,22 +53,19 @@ define(function(require){
 				})
 			})
 		})
-
-
-
-
-		tweenLine();
-
-
 	}
 
 	function tweenLine () {
-		_lines.forEach(function(lineItem){
-			lineItem.p2.tween( lineItem.p1.to );
+
+		_lines.forEach(function(lineItem, index){
+			var percent = (index+1)/_lines.length;
+			var delay = percent * 3;
+
+			lineItem.p2.tween( lineItem.p1.to, .5, delay );
 		})
 	}
 
-	var offsettt = 330;
+
 
 	function test () {
 
@@ -81,13 +76,12 @@ define(function(require){
 			var p1 = lineItem.p1.from;
 			var p2 = lineItem.p2.from;
 
-			Everywhere.graphic.lineStyle(1, 0xffffff, 1);
+			Everywhere.graphic.lineStyle(1, 0xff1144, 1);
 			Everywhere.graphic.moveTo(p1._x, p1._y);
 			Everywhere.graphic.lineTo(p2._x, p2._y);
 			Everywhere.graphic.endFill();
 
 		})
-		_stage.addChild( Everywhere.graphic );
 	}
 
 

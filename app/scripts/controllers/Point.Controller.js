@@ -8,27 +8,17 @@ define(function(){
 
 	function Point( content, mommy, queue ){
 
-		this.content = content;
-		this.id = 'POINT';
-		this.queue = queue;
+
+
+
+		Basic.call(this, content, mommy, queue, 'POINT');
 
 		var _from = content.clone();
 		var _to = content.clone();
 
 
-
-		Basic.call(this, content);
-		var _offset = {x:0, y:0 }
-
-		Object.defineProperty( this, 'offsetX', {
-			get: function(){ return _offset.x },
-			set: function(value){ _offset.x += value; }
-		});
-
-		Object.defineProperty( this, 'offsetY', {
-			get: function(){ return _offset.y },
-			set: function(value){ _offset.y += value; }
-		});
+		Object.defineProperty( this, 'getLetter', { value: this.mommy.mommy.mommy } );
+		Object.defineProperty( this, 'getWord', { value: this.mommy.mommy.mommy.mommy } );
 
 
 		Object.defineProperty( this, 'from', {
@@ -40,19 +30,20 @@ define(function(){
 			set: function(value){ _to = value }
 		});
 
+		var me = this;
 		Object.defineProperty( _from, '_x', {
-			get: function(){ return _from.x+_offset.x; }
+			get: function(){ return _from.x+me.offsetX; }
 		});
 		Object.defineProperty( _to, '_x', {
-			get: function(){ return _to.x+_offset.x;  }
+			get: function(){ return _to.x+me.offsetX;  }
 		});
 
 
 		Object.defineProperty( _from, '_y', {
-			get: function(){ return _from.y+_offset.y; }
+			get: function(){ return _from.y+me.offsetY; }
 		});
 		Object.defineProperty( _to, '_y', {
-			get: function(){ return _to.y+_offset.y;  }
+			get: function(){ return _to.y+me.offsetY;  }
 		});
 
 
@@ -66,21 +57,11 @@ define(function(){
 	Point.prototype = Object(Basic.prototype);
 	Point.prototype.constructor = Point;
 
-	Point.prototype.tween = function(newFromPoint){
+	Point.prototype.tween = function(newFromPoint, time, delay){
 		this.from = newFromPoint;
-		TweenLite.to( this.from, 1, { x:this.to.x, y:this.to.y, ease:Sine.easeOut });
+		TweenLite.to( this.from, time, { x:this.to.x, y:this.to.y, ease:Strong.easeOut, delay:delay });
 	}
 
-	Point.prototype.offsetWord = function(x, y){
-
-	}
-
-
-
-
-	// Point.prototype.offsetXChildren = function(x){
-	// 	console.log(this);
-	// }
 
 
 
