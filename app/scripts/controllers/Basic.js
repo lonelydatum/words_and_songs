@@ -4,16 +4,14 @@ define(function(){
 
 
 
-	function Basic(content, children){
+	function Basic(content){
 		this.content = content;
 
-		this.children = children;
+		this.children = [];
 
 
 
-		if(children){
-			this.makeBabies( children );
-		}
+
 
 		Object.defineProperty( this, 'totalChildren', {
 			get: function(){
@@ -23,18 +21,53 @@ define(function(){
 	}
 
 
+
+
+	Basic.prototype.offsetXChildren = function(x){
+
+		this.children.forEach(function(childItem){
+			childItem.offsetXChildren(x)
+		})
+
+	}
+
+	Basic.prototype.getNextChildren = function(mom){
+		return mom.children;
+	}
+
 	Basic.prototype.getChildAt = function(index){
-		if(index >= this.children.list.length) throw this.id + " Module of "+ index+' is not in the range of 0 and ' + this.children.list.length;
-		return this.children.list[index];
+		if(index >= this.children.length) throw this.id + " Module of "+ index+' is not in the range of 0 and ' + this.children.list.length;
+		return this.children[index];
+	}
+
+
+	Basic.prototype.getLetter = function( ){
+
 	}
 
 
 
+	Basic.prototype.createChildren = function(Child, contentList){
+		var curr, prev;
+		contentList.forEach(function(contentItem, index){
 
-	Basic.prototype.createChildObj = function(){
-		var children = {module:null, content:null, list:[] };
-		return Object.create(children);
+			prev = curr;
+			var queue = {me: index, total:contentList.length };
+			var mommy = this;
+
+			curr = new Child( contentItem, mommy, queue );
+			curr.mommy = mommy;
+			curr.chain = this.children[this.children.length-1];
+			this.children.push(curr);
+
+
+		}, this);
+
+
+
+
 	}
+
 
 
 
@@ -63,6 +96,8 @@ define(function(){
 
 		return lister;
 	};
+
+
 
 
 

@@ -4,15 +4,21 @@ define(function(require){
 
 
 	var Basic = require('controllers/Basic');
+	var Font = require('data/Font');
 
 
 	function Story( content ){
 
-		this.id = 'Story';
-		var children = this.createChildObj();
-		children.module = require('controllers/Message');
-		children.content = content;
-		Basic.call(this, content, children);
+		this.id = 'STORY';
+
+		// Font.parse();
+
+		Basic.call(this, content);
+
+		var module = require('controllers/Message.Controller');
+		this.createChildren( module, content)
+
+
 	}
 
 	Story.prototype = Object(Basic.prototype);

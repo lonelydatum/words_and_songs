@@ -6,9 +6,8 @@ define(function(require){
 
 
 	function Controller(){
-		var content = [ 'holly molly' ];
+		var content = [ 'Type is expressive' ];
 		var story = new Story(content);
-
 
 		Object.defineProperty( this, 'story', {
 			get: function() { return story; }
