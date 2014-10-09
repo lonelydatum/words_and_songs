@@ -7,10 +7,11 @@ define(function(require){
 
 
 	var Common = require('data/Common');
+	var Style = require('data/Style');
 	var Everywhere = require('common/Everywhere');
 	var TweenController = require('controllers/Tween.Controller');
 
-
+	var Common = require('data/Common');
 
 
 
@@ -51,8 +52,13 @@ define(function(require){
 		_message = _story.messages( _messageIndex );
 
 		if(!_message) {
-			// _messageIndex = 0;
-			// _message = _story.messages( _messageIndex );
+			if(Common.isLoop){
+				_messageIndex = 0;
+				_message = _story.messages( _messageIndex );
+			}else{
+				return;
+			}
+
 		};
 
 
@@ -67,7 +73,7 @@ define(function(require){
 
 			setTimeout(function(){
 
-				// createNextMessage();
+				createNextMessage();
 			}, _message.time)
 
 
@@ -105,7 +111,7 @@ define(function(require){
 			var p1 = lineItem.p1.from;
 			var p2 = lineItem.p2.from;
 
-			Everywhere.graphic.lineStyle(1, 0xff1144, 1);
+			Everywhere.graphic.lineStyle(Style.lineWidth, Style.lineColor, 1);
 			Everywhere.graphic.moveTo(p1._x, p1._y);
 			Everywhere.graphic.lineTo(p2._x, p2._y);
 			// console.log(p2._y);

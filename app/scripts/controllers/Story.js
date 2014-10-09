@@ -7,12 +7,14 @@ define(function(require){
 	var Font = require('data/Font');
 	var Message = require('controllers/Message.Controller');
 
-	function Story( content ){
 
+	function Story( data ){
+		console.log(data);
 		this.id = 'STORY';
-		Basic.call(this, content);
 
-		this.createChildren( Message, content)
+		Basic.call(this, data);
+
+		this.createChildren( Message, data);
 	}
 
 	Story.prototype = Object(Basic.prototype);
