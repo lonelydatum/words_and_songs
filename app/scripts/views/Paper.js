@@ -26,18 +26,25 @@ define(function(require){
 	var _messageIndex = -1;
 	var _tween;
 
+	var _theme;
+	var _style = {
+
+	}
 
 
 	function Paper( story ){
 		_story = story;
-		Common.stage = new PIXI.Stage(0x111111);
+		_style.lineColor = (Style.theme)?Style.theme.lineColor : Style.lineColor;
+		_style.backgroundColor = (Style.theme)?Style.theme.backgroundColor : Style.backgroundColor;
+
+		Common.stage = new PIXI.Stage(_style.backgroundColor);
 		_stage = Common.stage;
 		_renderer = PIXI.autoDetectRenderer(Common.stageWidth, Common.stageHeight);
 		document.body.appendChild(_renderer.view);
 		requestAnimFrame(animate);
 
-		Everywhere.graphic.x = 11;
-		Everywhere.graphic.y = 11;
+		Everywhere.graphic.x = 20;
+		Everywhere.graphic.y = 20;
 		_stage.addChild( Everywhere.graphic );
 
 		_tween = new TweenController();
@@ -111,7 +118,7 @@ define(function(require){
 			var p1 = lineItem.p1.from;
 			var p2 = lineItem.p2.from;
 
-			Everywhere.graphic.lineStyle(Style.lineWidth, Style.lineColor, 1);
+			Everywhere.graphic.lineStyle(Style.lineWidth, _style.lineColor, 1);
 			Everywhere.graphic.moveTo(p1._x, p1._y);
 			Everywhere.graphic.lineTo(p2._x, p2._y);
 			// console.log(p2._y);

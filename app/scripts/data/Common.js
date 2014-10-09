@@ -16,13 +16,13 @@ define(function(require){
 	}
 
 	var _story = [
-				{ message: '12 abcdefghij klmnopqrst uwxyz', time: 1000 },
+				{ message: '1234567890, abcdefghij klmnopqrst uwxyz', time: 1000 },
 				// { message: 'finley loves eliot', time: 1000 },
 				// { message: 'hell keep going', time: 2000 },
 			]
 
 	Object.defineProperty( self, 'stageWidth', { value: 1700 });
-	Object.defineProperty( self, 'stageHeight', { value: 950 });
+	Object.defineProperty( self, 'stageHeight', { value: 1000 });
 	Object.defineProperty( self, 'settings', { value: _settings });
 	Object.defineProperty( self, 'story', { value: _story });
 	Object.defineProperty( self, 'isLoop', { value: _settings.loop });

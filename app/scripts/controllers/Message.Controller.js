@@ -6,6 +6,7 @@ define(function(require){
 	var Word = require('controllers/Word.Controller');
 	var Basic = require('controllers/Basic');
 	var Common = require('data/Common');
+	var Style = require('data/Style');
 
 
 	function Message( content, mommy, queue ){
@@ -24,7 +25,7 @@ define(function(require){
 			// console.log(wordItem.content, _x + wordItem.width);
 			if(_x + wordItem.width > _max.width){
 				_x = 0;
-				_y += 200 + 50;
+				_y += 200 + Style.leading;
 			}
 			wordItem.offsetX = _x;
 			wordItem.offsetY = _y;
