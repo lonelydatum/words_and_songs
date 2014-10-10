@@ -19,7 +19,7 @@ define(function(require){
 
 		var _x = 0;
 		var _y = 0;
-		var _max = { width:Common.stageWidth , height: Common.stageHeight };
+		var _max = { width:Style.stageWidth , height: Style.stageHeight };
 
 		this.children.forEach( function(wordItem){
 			//is there enough space on this line

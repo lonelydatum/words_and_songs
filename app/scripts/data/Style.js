@@ -4,6 +4,13 @@ define(function(require){
 
 	var _ = require('_');
 
+
+	var _stage = null;
+	var _settings = {
+		loop: false
+	}
+
+
 	var Style = {
 
 	};
@@ -29,6 +36,20 @@ define(function(require){
 		return (index===random)
 	})
 
+	console.log(window.innerHeight);
+	Object.defineProperty( Style, 'stageWidth', { value: window.innerWidth });
+	Object.defineProperty( Style, 'stageHeight', { value: window.innerHeight });
+	Object.defineProperty( Style, 'settings', { value: _settings });
+	Object.defineProperty( Style, 'isLoop', { value: _settings.loop });
+
+
+
+
+
+	Object.defineProperty( Style, 'stage', {
+		set: function(value){ _stage = value; },
+		get: function(){ return _stage; }
+	});
 
 
 

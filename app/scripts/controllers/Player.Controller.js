@@ -3,7 +3,9 @@ define(function(require){
 	'use strict';
 
 	var Signals = require('signals');
-	var _messageIndex = 0;
+	var Style = require('data/Style');
+
+	var _messageIndex = -1;
 	var _messages;
 	var _signals = {
 		playMessage: new Signals()
@@ -21,20 +23,40 @@ define(function(require){
   window.player;
   window.onYouTubePlayerAPIReady = function () {
     window.player = new YT.Player('ytplayer', {
-      height: '1200',
-      width: '1700',
+
+      width: Style.stageWidth,
+      height: Style.stageHeight,
       videoId: 'w_DKWlrA24k'
     });
+
+    window.player.addEventListener("onStateChange", onytplayerStateChange);
 
 
 
     setInterval(function(){
-    	var message = _messages[_messageIndex];
-    	if(window.player.getCurrentTime() > message.playAt){
-    		_signals.playMessage.dispatch(message);
-    		_messageIndex++;
+    	// console.log(window.player.getCurrentTime());
+    	if(_messageIndex===-1){
+    		var min = {time:99999, messageForNow:null};
+    		_.each(_messages, function(messageItem){
+    			var diff = Math.abs(messageItem.playAt - window.player.getCurrentTime());
+    			if(diff<min.time){
+    				min.time = diff;
+    				min.messageForNow = messageItem;
+    			}
 
+    		})
+    		_messageIndex = min.messageForNow.queue.me;
+
+    	}else{
+			var message = _messages[_messageIndex];
+			console.log(message.content);
+			if(window.player.getCurrentTime() > message.playAt){
+				_signals.playMessage.dispatch(message);
+				_messageIndex++;
+			}
     	}
+
+
 
     },1000)
 
@@ -42,9 +64,11 @@ define(function(require){
 
   }
 
-   function onPlayerReady (event) {
-        event.target.playVideo();
-        console.log(player);
+
+
+   function onytplayerStateChange (event) {
+        console.log(event);
+        _messageIndex = -1;
     }
 
 

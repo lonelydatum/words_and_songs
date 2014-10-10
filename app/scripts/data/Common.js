@@ -6,14 +6,12 @@ define(function(require){
 
 
 
-	var _stage = null;
+
 
 
 	var self = { };
 
-	var _settings = {
-		loop: false
-	}
+
 
 
 // I'll watch them bloom for me and you
@@ -61,7 +59,8 @@ define(function(require){
 				{ message: 'Where trouble melts like lemon drops', playAt:97, readDuration:1 },
 				{ message: 'High above the chimney tops', playAt:101, readDuration:1 },
 				{ message: 'Thats where youll find me', playAt:104, readDuration:1 },
-				{ message: 'Oh, somewhere over the rainbow bluebirds fly', playAt:110, readDuration:1 },
+				{ message: 'Oh, somewhere over the rainbow', playAt:110, readDuration:1 },
+				{ message: 'bluebirds fly', playAt:117, readDuration:1 },
 				{ message: 'And the dream that you dare to,', playAt:121, readDuration:1 },
 				{ message: 'Oh why, oh why cant I?', playAt:126, readDuration:1 },
 				{ message: 'Someday Ill wish upon a star,', playAt:135, readDuration:1 },
@@ -69,7 +68,8 @@ define(function(require){
 				{ message: 'Where trouble melts like lemon drops', playAt:145, readDuration:1 },
 				{ message: 'High above the chimney top', playAt:149, readDuration:1 },
 				{ message: 'Thats where youll find me', playAt:152, readDuration:1 },
-				{ message: 'Oh, somewhere over the rainbow way up high', playAt:158, readDuration:1 },
+				{ message: 'Oh, somewhere over the rainbow', playAt:158, readDuration:1 },
+				{ message: 'way up high', playAt:160, readDuration:1 },
 				{ message: 'And the dream that you dare to, why, oh why cant I? I?', playAt:163, readDuration:1 }
 
 
@@ -78,20 +78,9 @@ define(function(require){
 
 			]
 
-	Object.defineProperty( self, 'stageWidth', { value: 1800 });
-	Object.defineProperty( self, 'stageHeight', { value: 1000 });
-	Object.defineProperty( self, 'settings', { value: _settings });
+
 	Object.defineProperty( self, 'story', { value: _story });
-	Object.defineProperty( self, 'isLoop', { value: _settings.loop });
 
-
-
-
-
-	Object.defineProperty( self, 'stage', {
-		set: function(value){ _stage = value; },
-		get: function(){ return _stage; }
-	});
 
 
 	return self

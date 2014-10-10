@@ -42,12 +42,12 @@ define(function(require){
 		_style.lineColor = (Style.theme)?Style.theme.lineColor : Style.lineColor;
 		_style.backgroundColor = (Style.theme)?Style.theme.backgroundColor : Style.backgroundColor;
 
-		Common.stage = new PIXI.Stage(_style.backgroundColor);
-		_stage = Common.stage;
+		_stage = new PIXI.Stage(_style.backgroundColor);
+		Style.stage = _stage ;
 
 		var myView = document.getElementById('rhythym');
 		console.log(myView);
-		_renderer = PIXI.autoDetectRenderer(Common.stageWidth, Common.stageHeight, myView, true, true);
+		_renderer = PIXI.autoDetectRenderer(Style.stageWidth, Style.stageHeight+40, myView, true, true);
 		requestAnimFrame(animate);
 
 		Everywhere.graphic.x = 20;
@@ -82,19 +82,6 @@ define(function(require){
 
 	function createNextMessage(message){
 
-		// _messageIndex++;
-
-		// _message = _story.messages( _messageIndex );
-
-		// if(!_message) {
-		// 	if(Common.isLoop){
-		// 		_messageIndex = 0;
-		// 		_message = _story.messages( _messageIndex );
-		// 	}else{
-		// 		return;
-		// 	}
-
-		// };
 
 
 		console.log(message);
