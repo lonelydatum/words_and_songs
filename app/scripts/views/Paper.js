@@ -10,6 +10,7 @@ define(function(require){
 	var Style = require('data/Style');
 	var Everywhere = require('common/Everywhere');
 	var TweenController = require('controllers/Tween.Controller');
+	var PlayerController = require('controllers/Player.Controller');
 
 	var Common = require('data/Common');
 
@@ -34,6 +35,7 @@ define(function(require){
 	var _timeline = [];
 	var _message;
 	var _dc;
+	var _player;
 
 	function Paper( story ){
 		_story = story;
@@ -54,7 +56,10 @@ define(function(require){
 
 		_tween = new TweenController();
 
-
+		_player = new PlayerController(_story.children);
+		_player.signals.playMessage.add(function(message){
+			createNextMessage(message);
+		})
 
 		var startText = document.getElementById('startText');
 		startText.addEventListener('click', function(event) {
@@ -76,7 +81,7 @@ define(function(require){
 
 
 	function createNextMessage(message){
-		console.log(message);
+
 		// _messageIndex++;
 
 		// _message = _story.messages( _messageIndex );
@@ -92,7 +97,7 @@ define(function(require){
 		// };
 
 
-
+		console.log(message);
 
 
 

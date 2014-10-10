@@ -9,7 +9,7 @@ define(function(require){
 
 
 	function Story( data ){
-		console.log(data);
+
 		this.id = 'STORY';
 
 		Basic.call(this, data);

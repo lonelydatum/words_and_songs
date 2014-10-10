@@ -33,10 +33,10 @@ define(function(require){
 
 
 	Object.defineProperty( Style, 'lineWidth', { value: 2 });
-	Object.defineProperty( Style, 'lineColor', { value: 0xf55930 });
+	Object.defineProperty( Style, 'lineColor', { value: 0xf3d527 });
 	Object.defineProperty( Style, 'leading', { value: 50 });
 	Object.defineProperty( Style, 'backgroundColor', { value: 0xFFFF00 });
-	Object.defineProperty( Style, 'theme', { value: _themes.brightGreen });
+	Object.defineProperty( Style, 'theme', { value: null });
 
 
 	return Style;

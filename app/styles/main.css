@@ -29,6 +29,6 @@ body {
 
 }
 
-.container .yt{
-	opacity: .1;
+.container #ytplayer{
+	opacity: .3;
 }
