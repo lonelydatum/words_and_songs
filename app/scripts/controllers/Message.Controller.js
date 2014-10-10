@@ -12,7 +12,8 @@ define(function(require){
 	function Message( content, mommy, queue ){
 		Basic.call(this, content.message, mommy, queue, 'MESSAGE');
 
-		this.time = content.time;
+		this.playAt = content.playAt;
+		this.readDuration = content.readDuration;
 
 		this.createChildren( Word, content.message.split(' ') );
 

@@ -13,6 +13,22 @@ body {
 }
 
 
-canvas{
-	margin: 0 auto;
+.container{
+	position: relative;
+	width: 1700px;
+	height:1200px;
+
+}
+
+.container canvas{
+	position: absolute;
+	top:140px;
+	left:-85px;
+	-webkit-transform: scale(.75,.75);
+	background-blend-mode: darken, luminosity;
+
+}
+
+.container .yt{
+	opacity: .1;
 }

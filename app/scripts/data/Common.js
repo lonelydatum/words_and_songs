@@ -16,12 +16,23 @@ define(function(require){
 	}
 
 	var _story = [
-				{ message: '1234567890, abcdefghij klmnopqrst uwxyz', time: 1000 },
-				// { message: 'finley loves eliot', time: 1000 },
-				// { message: 'hell keep going', time: 2000 },
+				{ message: 'Somewhere over the rainbow', playAt: 36, readDuration:1 },
+				{ message: 'Way up high', playAt: 42, readDuration:1 },
+				{ message: 'And the dreams that you dreamed of', playAt: 47, readDuration:1 },
+				{ message: 'Once in a lullaby', playAt:53, readDuration:1 },
+				{ message: 'Somewhere over the rainbow', playAt:63, readDuration:1 },
+				{ message: 'Blue birds fly', playAt:70, readDuration:1 },
+				{ message: 'And the dreams that you dreamed of', playAt:75, readDuration:1 },
+				{ message: 'Dreams really do come true ooh oh', playAt:78, readDuration:1 },
+				// { message: '', playAt:, readDuration:1 },
+				// { message: '', playAt:, readDuration:1 },
+				// { message: '', playAt:, readDuration:1 },
+				// { message: '', playAt:, readDuration:1 },
+				// { message: '', playAt:, readDuration:1 },
+
 			]
 
-	Object.defineProperty( self, 'stageWidth', { value: 1700 });
+	Object.defineProperty( self, 'stageWidth', { value: 1800 });
 	Object.defineProperty( self, 'stageHeight', { value: 1000 });
 	Object.defineProperty( self, 'settings', { value: _settings });
 	Object.defineProperty( self, 'story', { value: _story });

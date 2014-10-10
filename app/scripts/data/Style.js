@@ -25,7 +25,7 @@ define(function(require){
 	var random = Math.floor(Math.random()*4)
 
 	var found = _.find(_themes, function(item,index, i){
-		console.log(item);
+
 		return (index===random)
 	})
 

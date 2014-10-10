@@ -31,6 +31,9 @@ define(function(require){
 
 	}
 
+	var _timeline = [];
+	var _message;
+	var _dc;
 
 	function Paper( story ){
 		_story = story;
@@ -39,8 +42,10 @@ define(function(require){
 
 		Common.stage = new PIXI.Stage(_style.backgroundColor);
 		_stage = Common.stage;
-		_renderer = PIXI.autoDetectRenderer(Common.stageWidth, Common.stageHeight);
-		document.body.appendChild(_renderer.view);
+
+		var myView = document.getElementById('rhythym');
+		console.log(myView);
+		_renderer = PIXI.autoDetectRenderer(Common.stageWidth, Common.stageHeight, myView, true, true);
 		requestAnimFrame(animate);
 
 		Everywhere.graphic.x = 20;
@@ -48,40 +53,60 @@ define(function(require){
 		_stage.addChild( Everywhere.graphic );
 
 		_tween = new TweenController();
-		createNextMessage();
+
+
+
+		var startText = document.getElementById('startText');
+		startText.addEventListener('click', function(event) {
+		  	createTimelinesForMessage();
+		});
+		// createNextMessage();
 
 	}
 
-	var _message;
-	function createNextMessage(){
-		_messageIndex++;
-
-		_message = _story.messages( _messageIndex );
-
-		if(!_message) {
-			if(Common.isLoop){
-				_messageIndex = 0;
-				_message = _story.messages( _messageIndex );
-			}else{
-				return;
-			}
-
-		};
+	function createTimelinesForMessage (argument) {
+		_story.children.forEach(function(messageItem){
+			console.log(messageItem.playAt);
+			var dc = TweenMax.delayedCall(messageItem.playAt, function(){
+				createNextMessage(messageItem);
+			})
+			_timeline.push(dc);
+		})
+	}
 
 
+	function createNextMessage(message){
+		console.log(message);
+		// _messageIndex++;
+
+		// _message = _story.messages( _messageIndex );
+
+		// if(!_message) {
+		// 	if(Common.isLoop){
+		// 		_messageIndex = 0;
+		// 		_message = _story.messages( _messageIndex );
+		// 	}else{
+		// 		return;
+		// 	}
+
+		// };
 
 
 
 
 
-		var signalDone = _tween.lines( getAllLines( _message ) );
+
+
+		var signalDone = _tween.lines( getAllLines( message ) );
 		signalDone.addOnce(function(){
 
 
-			setTimeout(function(){
 
-				createNextMessage();
-			}, _message.time)
+
+			// setTimeout(function(){
+
+			// 	createNextMessage();
+			// }, _message.time)
 
 
 		}, this)
