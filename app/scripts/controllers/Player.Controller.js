@@ -5,12 +5,14 @@ define(function(require){
 	var Signals = require('signals');
 	var Style = require('data/Style');
 
-	var _messageIndex = -1;
+	var _messageIndex = 0;
 	var _messages;
 	var _signals = {
 		playMessage: new Signals()
 	}
 
+  var _timePrev = 0;
+  var _timeCurr = 0;
 
 	  // Load the IFrame Player API code asynchronously.
   var tag = document.createElement('script');
@@ -34,10 +36,15 @@ define(function(require){
 
 
     setInterval(function(){
+
+      _timePrev = _timeCurr;
+      _timeCurr = window.player.getCurrentTime();
+      var diff = Math.abs(_timePrev-_timeCurr);
+      
     	// console.log(window.player.getCurrentTime());
-    	if(_messageIndex===-1){
-    		var min = {time:99999, messageForNow:null};
-    		_.each(_messages, function(messageItem){
+    	if(diff>2){
+    		  var min = {time:99999, messageForNow:null};
+    		  _.each(_messages, function(messageItem){
     			var diff = Math.abs(messageItem.playAt - window.player.getCurrentTime());
     			if(diff<min.time){
     				min.time = diff;
@@ -49,7 +56,7 @@ define(function(require){
 
     	}else{
 			var message = _messages[_messageIndex];
-			console.log(message.content);
+			
 			if(window.player.getCurrentTime() > message.playAt){
 				_signals.playMessage.dispatch(message);
 				_messageIndex++;
