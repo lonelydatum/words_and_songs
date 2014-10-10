@@ -63,7 +63,7 @@ define(function(require){
 	Object.defineProperty( Style, 'lineColor', { value: 0xf3d527 });
 
 	Object.defineProperty( Style, 'backgroundColor', { value: 0xFFFF00 });
-	Object.defineProperty( Style, 'theme', { value: _themes.pinkGrey });
+	Object.defineProperty( Style, 'theme', { value: _themes.brightYellow });
 
 
 	return Style;
