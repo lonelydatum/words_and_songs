@@ -17,6 +17,8 @@ define(function(require){
 
 		var _font = Font.getCharacter(content);
 
+
+
 		Basic.call(this, content, mommy, queue, 'LETTER');
 		this.createChildren( Stroke, _font.points, 'stroke' );
 

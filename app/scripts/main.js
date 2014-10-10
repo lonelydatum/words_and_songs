@@ -6,7 +6,9 @@ require.config({
 		TweenLite: '../../bower_components/greensock/src/uncompressed/TweenLite',
 		TimelineMax: '../../bower_components/greensock/src/uncompressed/TimelineMax',
 		signals: '../../bower_components/signals/dist/signals',
+		yt: '../scripts/lib/player_api',
 		_: '../../bower_components/lodash/dist/lodash'
+
 	}
 });
 

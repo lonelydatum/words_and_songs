@@ -2,6 +2,7 @@
 define(function(require){
 	'use strict';
 
+	var PIXI = require('pixi');
 	var _ = require('_');
 
 
@@ -36,11 +37,16 @@ define(function(require){
 		return (index===random)
 	})
 
-	console.log(window.innerHeight);
+	var w = window.innerWidth - 100;
+	var h = window.innerHeight - 100;
+	var x = 50;
+	var y = 50;
+	Object.defineProperty( Style, 'drawingArea', { value: new PIXI.Rectangle(x,y,w,h)  });
 	Object.defineProperty( Style, 'stageWidth', { value: window.innerWidth });
 	Object.defineProperty( Style, 'stageHeight', { value: window.innerHeight });
 	Object.defineProperty( Style, 'settings', { value: _settings });
 	Object.defineProperty( Style, 'isLoop', { value: _settings.loop });
+
 
 
 
@@ -55,9 +61,9 @@ define(function(require){
 
 	Object.defineProperty( Style, 'lineWidth', { value: 2 });
 	Object.defineProperty( Style, 'lineColor', { value: 0xf3d527 });
-	Object.defineProperty( Style, 'leading', { value: 50 });
+
 	Object.defineProperty( Style, 'backgroundColor', { value: 0xFFFF00 });
-	Object.defineProperty( Style, 'theme', { value: null });
+	Object.defineProperty( Style, 'theme', { value: _themes.pinkGrey });
 
 
 	return Style;

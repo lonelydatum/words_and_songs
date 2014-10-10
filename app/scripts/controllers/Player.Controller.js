@@ -4,6 +4,10 @@ define(function(require){
 
 	var Signals = require('signals');
 	var Style = require('data/Style');
+  var yt = require('yt');
+
+
+
 
 	var _messageIndex = 0;
 	var _messages;
@@ -14,14 +18,6 @@ define(function(require){
   var _timePrev = 0;
   var _timeCurr = 0;
 
-	  // Load the IFrame Player API code asynchronously.
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/player_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-  // Replace the 'ytplayer' element with an <iframe> and
-  // YouTube player after the API code downloads.
   window.player;
   window.onYouTubePlayerAPIReady = function () {
     window.player = new YT.Player('ytplayer', {
@@ -40,7 +36,7 @@ define(function(require){
       _timePrev = _timeCurr;
       _timeCurr = window.player.getCurrentTime();
       var diff = Math.abs(_timePrev-_timeCurr);
-      
+
     	// console.log(window.player.getCurrentTime());
     	if(diff>2){
     		  var min = {time:99999, messageForNow:null};
@@ -56,7 +52,7 @@ define(function(require){
 
     	}else{
 			var message = _messages[_messageIndex];
-			
+
 			if(window.player.getCurrentTime() > message.playAt){
 				_signals.playMessage.dispatch(message);
 				_messageIndex++;

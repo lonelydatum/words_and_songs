@@ -43,15 +43,16 @@ define(function(require){
 		_style.backgroundColor = (Style.theme)?Style.theme.backgroundColor : Style.backgroundColor;
 
 		_stage = new PIXI.Stage(_style.backgroundColor);
+
 		Style.stage = _stage ;
 
 		var myView = document.getElementById('rhythym');
-		console.log(myView);
-		_renderer = PIXI.autoDetectRenderer(Style.stageWidth, Style.stageHeight+40, myView, true, true);
+
+		_renderer = PIXI.autoDetectRenderer(Style.stageWidth, Style.stageHeight-50, myView, true, true);
 		requestAnimFrame(animate);
 
-		Everywhere.graphic.x = 20;
-		Everywhere.graphic.y = 20;
+		// Everywhere.graphic.x = 20;
+		// Everywhere.graphic.y = 20;
 		_stage.addChild( Everywhere.graphic );
 
 		_tween = new TweenController();
@@ -61,11 +62,14 @@ define(function(require){
 			createNextMessage(message);
 		})
 
-		var startText = document.getElementById('startText');
-		startText.addEventListener('click', function(event) {
-		  	createTimelinesForMessage();
-		});
-		// createNextMessage();
+		// var startText = document.getElementById('startText');
+		// startText.addEventListener('click', function(event) {
+		//   	createTimelinesForMessage();
+		// });
+		// TweenMax.delayedCall(2, function(){
+		// 	createNextMessage(_story.messages(0));
+		// })
+
 
 	}
 
@@ -129,6 +133,10 @@ define(function(require){
 	function test () {
 
 		Everywhere.graphic.clear();
+
+
+		// Everywhere.graphic.beginFill(0xFF700B, 1);
+		// Everywhere.graphic.drawRect(Style.drawingArea.x, Style.drawingArea.y, Style.drawingArea.width, Style.drawingArea.height);
 
 		_lines.forEach(function(lineItem){
 

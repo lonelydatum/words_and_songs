@@ -66,21 +66,22 @@ body {
 
 .container{
 	position: relative;
-	width: 1700px;
-	height:1200px;
-
+	/*width: 1700px;
+	height:1200px;*/
 }
 
 .container canvas{
+	display: inline-block;
+
 	position: absolute;
 	top:0;
-	bottom:0;
+	/*bottom:0;*/
 	left:0;
-	right:0;
+	/*right:0;*/
 	/*border: 1px solid green;*/
 	/*opacity: .2;*/
 
-	-webkit-transform: scale(.75,.75);
+	/*-webkit-transform: scale(.75,.75);*/
 	/*background-blend-mode: darken, luminosity;*/
 
 }

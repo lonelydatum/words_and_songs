@@ -55,11 +55,14 @@ define(function(require){
 	}
 
 
+
 	var Font = {
 
 		settings: {
+
 			supportsUpperCase: true,
-			supportsLowerCase: false
+			supportsLowerCase: false,
+
 		},
 
 
@@ -284,6 +287,18 @@ define(function(require){
 			},
 		}
 	};
+
+	var _scale = .7;
+	var _width = 200;
+	var _height = 200;
+	var _leading = 40;
+	var _space = 80;
+
+	Object.defineProperty( Font, 'scale', { value: _scale });
+	Object.defineProperty( Font, 'width', { value: _scale*_width });
+	Object.defineProperty( Font, 'height', { value: _scale*_height });
+	Object.defineProperty( Font, 'leading', { value: _scale*_leading });
+	Object.defineProperty( Font, 'space', { value: _scale*_space });
 
 
 	return Font;

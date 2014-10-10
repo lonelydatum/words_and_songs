@@ -22,8 +22,8 @@ define(function( require ){
 		tl.pause();
 		lines.forEach(function(lineItem, index){
 			var percent = (index+1)/lines.length;
-			var delay = percent * 2;
-			var speed = 200;
+			var delay = percent * 3;
+			var speed = 100;
 			var signals = lineItem.p2.signals;
 			var tween = lineItem.p2.tween( 'FROM_SIBLING_TO_HERE', speed, delay );
 			signals.tweenDone.add(function(){

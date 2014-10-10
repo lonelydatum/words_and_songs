@@ -7,6 +7,7 @@ define(function(require){
 	var Basic = require('controllers/Basic');
 	var Common = require('data/Common');
 	var Style = require('data/Style');
+	var Font = require('data/Font');
 
 
 	function Message( content, mommy, queue ){
@@ -17,21 +18,24 @@ define(function(require){
 
 		this.createChildren( Word, content.message.split(' ') );
 
-		var _x = 0;
-		var _y = 0;
+		var _drawingArea = Style.drawingArea;
+		var _x = _drawingArea.x;
+		var _y = _drawingArea.y;
 		var _max = { width:Style.stageWidth , height: Style.stageHeight };
+
+
 
 		this.children.forEach( function(wordItem){
 			//is there enough space on this line
-			// console.log(wordItem.content, _x + wordItem.width);
-			if(_x + wordItem.width > _max.width){
-				_x = 0;
-				_y += 200 + Style.leading;
+
+			if(_x + wordItem.width > _drawingArea.width){
+				_x = Style.drawingArea.x;
+				_y += Font.height + Font.leading + _drawingArea.y;
 			}
 			wordItem.offsetX = _x;
 			wordItem.offsetY = _y;
 
-			_x += wordItem.width + 80;
+			_x += wordItem.width + Font.space;
 		}, this );
 	}
 
