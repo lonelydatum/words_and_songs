@@ -44,7 +44,7 @@ define(function(require){
 		this.height = _rect.height;
 
 		Object.defineProperty(this, 'rect', { get: function() { return _rect; } });
-		Object.defineProperty(this, 'padding', { get: function() { return 30; } });
+		Object.defineProperty(this, 'padding', { get: function() {return Font.kerning; } });
 		Object.defineProperty( this, 'getWord', { value: this.mommy } );
 
 	}

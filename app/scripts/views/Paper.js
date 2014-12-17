@@ -3,6 +3,8 @@ define(function(require){
 	'use strict';
 	var PIXI = require('pixi');
 	var TweenMax = require('TweenMax');
+	var $ = require('jquery');
+
 
 
 
@@ -48,27 +50,51 @@ define(function(require){
 
 		var myView = document.getElementById('rhythym');
 
-		_renderer = PIXI.autoDetectRenderer(Style.stageWidth, Style.stageHeight-50, myView, true, true);
-		requestAnimFrame(animate);
 
-		// Everywhere.graphic.x = 20;
-		// Everywhere.graphic.y = 20;
+
+		var ratioScreen = Style.drawingArea.width / Style.drawingArea.height;
+
+
+
+
+
+		_renderer = PIXI.autoDetectRenderer(Style.drawingArea.width, Style.drawingArea.height, myView, true, true);
+
+
+
+		var scale = Math.min( Style.stageWidth/_renderer.width, (Style.stageHeight)/(_renderer.height))
+
+		var newWidth = (_renderer.width * scale);
+		var newHeight = (_renderer.height * scale);
+		$("#rhythym").css("width", newWidth+"px");
+		$("#rhythym").css("height", newHeight+"px");
+		var left = (Style.stageWidth - newWidth) / 2;
+		var top = ((Style.stageHeight) - newHeight) / 2;
+		$("#rhythym").css("left", left+"px");
+
+
+
+
+		$("#rhythym").css("top", top+"px");
+
+
+	var area = newWidth * newHeight
+	
+
+
+
+
+		requestAnimFrame(animate);
 		_stage.addChild( Everywhere.graphic );
 
 		_tween = new TweenController();
+
+
 
 		_player = new PlayerController(_story.children);
 		_player.signals.playMessage.add(function(message){
 			createNextMessage(message);
 		})
-
-		// var startText = document.getElementById('startText');
-		// startText.addEventListener('click', function(event) {
-		//   	createTimelinesForMessage();
-		// });
-		// TweenMax.delayedCall(2, function(){
-		// 	createNextMessage(_story.messages(0));
-		// })
 
 
 	}
@@ -88,24 +114,10 @@ define(function(require){
 
 
 
-		console.log(message);
-
-
 
 
 		var signalDone = _tween.lines( getAllLines( message ) );
-		signalDone.addOnce(function(){
 
-
-
-
-			// setTimeout(function(){
-
-			// 	createNextMessage();
-			// }, _message.time)
-
-
-		}, this)
 	}
 
 
@@ -134,9 +146,6 @@ define(function(require){
 
 		Everywhere.graphic.clear();
 
-
-		// Everywhere.graphic.beginFill(0xFF700B, 1);
-		// Everywhere.graphic.drawRect(Style.drawingArea.x, Style.drawingArea.y, Style.drawingArea.width, Style.drawingArea.height);
 
 		_lines.forEach(function(lineItem){
 

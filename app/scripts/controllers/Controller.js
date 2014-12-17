@@ -9,7 +9,7 @@ define(function(require){
 
 	function Controller(){
 
-
+		
 		_.each(Font.characters.abc, function(letterItem){
 			letterItem.points.forEach(function(strokeItem){
 				strokeItem.forEach(function(pointItem){
@@ -21,7 +21,7 @@ define(function(require){
 
 
 
-		var story = new Story(Common.story);
+		var story = new Story(Common.lyrics);
 
 		Object.defineProperty( this, 'story', {
 			get: function() { return story; }

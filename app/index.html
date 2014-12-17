@@ -21,6 +21,39 @@
 
     </head>
     <body>
+      <div class="parent">
+        <div class="container">
+            <div id="ytplayer"></div>
+            <canvas id="rhythym" width=0 height=0></canvas>
+        </div>
+
+      </div>
+
+
+      <script charset="utf-8">
+        window.peeps = {
+          shandi:[
+            { message: 'Hi Shandi. Just want to say thanks.', playAt: 1 },
+            { message: 'It\'s always great working with you.', playAt: 6 },
+            { message: 'Here\'s to 2015.', playAt: 11 }
+          ],
+          john:[
+            { message: 'Hi John. Just want to say thanks.', playAt: 1 },
+            { message: 'It\'s always great working with you.', playAt: 6 },
+            { message: 'Here\'s to 2015.', playAt: 11 }
+          ],
+          ann:[
+            { message: 'Hi Ann. Thanks for all the telus work.', playAt: 1 },
+            { message: 'Hope to hear from you in the new year.', playAt: 6 },
+            { message: 'Here\'s to 2015.', playAt: 11 }
+          ]
+
+
+        };
+
+
+
+      </script>
 
 
         <!--[if lt IE 10]>
@@ -50,10 +83,8 @@
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/main.js" src="bower_components/requirejs/require.js"></script>
 
-        <div class="container">
-            <div id="ytplayer"></div>
-            <canvas id="rhythym"></canvas>
-        </div>
+
+
 
         <!-- endbuild -->
 </body>

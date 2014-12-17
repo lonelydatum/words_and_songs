@@ -1,0 +1,71 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>words music</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+
+    <!-- endbuild -->
+
+
+</head>
+<body>
+
+    
+
+    <div class="container">
+        <div id="ytplayer"></div>
+        <canvas id="rhythym"></canvas>
+    </div>
+
+
+    <script>
+        window.player;
+        window.onYouTubePlayerAPIReady = function () {
+            window.player = new YT.Player('ytplayer', {
+                playerVars: {
+        html5: 1
+      },
+              width: 800,
+              height: 600,
+              videoId: 'PSZxmZmBfnU'
+
+          });
+
+            window.player.addEventListener("onStateChange", onytplayerStateChange);
+
+
+
+
+        }
+
+        if (!window['YT']) {var YT = {loading: 0,loaded: 0};}if (!window['YTConfig']) {var YTConfig = {'host': 'http://www.youtube.com'};}if (!YT.loading) {YT.loading = 1;(function(){var l = [];YT.ready = function(f) {if (YT.loaded) {f();} else {l.push(f);}};window.onYTReady = function() {YT.loaded = 1;for (var i = 0; i < l.length; i++) {try {l[i]();} catch (e) {}}};YT.setConfig = function(c) {for (var k in c) {if (c.hasOwnProperty(k)) {YTConfig[k] = c[k];}}};var a = document.createElement('script');a.id = 'www-widgetapi-script';a.src = 'https:' + '//s.ytimg.com/yts/jsbin/www-widgetapi-vflBfDu58/www-widgetapi.js';a.async = true;var b = document.getElementsByTagName('script')[0];b.parentNode.insertBefore(a, b);})();}
+
+
+
+function onytplayerStateChange (event) {
+    console.log(event);
+
+}
+
+
+
+</script>
+
+
+
+
+<!-- endbuild -->
+</body>
+</html>

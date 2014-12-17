@@ -7,83 +7,88 @@ define(function(require){
 
 
 
+var peeps = [];
 
 
-	var self = { };
+window.peep = "";
+
+if(window.location.hash) {
+	window.peep = window.location.hash.substr(1);
+
+	var peepsGeneral = [
+		{ message: 'Hi '+window.peep+'. It\'s been great working with you this year.', playAt: 1 },
+		{ message: 'Here\'s to 2015. All the best, Gar', playAt: 8 },
+		{ message: '', playAt: 15}
+	]
+
+	var peepsAnn = [
+		{ message: 'Hi '+window.peep+'. Thanks for all the Telus work.', playAt: 1 },
+		{ message: 'Here\'s to 2015. All the best, Gar', playAt: 8 },
+		{ message: '', playAt: 15}
+	]
+
+
+	if(peep==="ann"){
+		peeps = peepsAnn;
+	}else{
+		peeps = peepsGeneral;
+	}
 
 
 
 
-// I'll watch them bloom for me and you
-// And I think to myself
-// What a wonderful world
+} else {
 
-// Well I see skies of blue
-// And I see clouds of white
-// And the brightness of day
-// I like the dark
-// And I think to myself
-// What a wonderful world
+}
 
-// The colors of the rainbow so pretty in the sky
-// Are also on the faces of people passing by
-// I see friends shaking hands
-// Saying, "How do you do?"
-// They're really saying, I...I love you
 
-// I hear babies cry and I watch them grow,
-// They'll learn much more than we'll know
-// And I think to myself
-// What a wonderful world world
 
-// Someday I'll wish upon a star,
-// Wake up where the clouds are far behind me
-// Where trouble melts like lemon drops
-// High above the chimney top
-// That's where you'll find me
+	var lyrics = [];
 
-// Oh, somewhere over the rainbow way up high
-// And the dream that you dare to, why, oh why can't I? I?
+	var music = {
+		video: 'RDZ3sXVxqDbFk',
+		artist: 'Drummer boy',
+		lyrics: [
+		{ message: 'Happy Holidays, '+window.peep, playAt: 222},
+		{ message: '', playAt: 333},
+			{ message: 'Should auld acquaintance be forgot,', playAt: 19},
+			{ message: 'And never brought to mind?', playAt: 24},
+			{ message: 'Should auld acquaintance be forgot,', playAt: 30},
+			{ message: 'And days of auld lang syne!', playAt: 36},
+			{ message: 'For auld lang syne, my dear', playAt: 42},
+			{ message: 'For auld lang syne,', playAt: 47},
+			{ message: 'We\'ll drink a cup o\' kindness yet', playAt: 53},
+			{ message: 'For auld lang syne!', playAt: 58},
+			{ message: 'For auld lang syne, my dear', playAt: 64},
+			{ message: 'For auld lang syne,', playAt: 69},
+			{ message: 'We\'ll drink a cup o\' kindness yet', playAt: 74},
+			{ message: 'For auld lang syne!', playAt: 80},
+			{ message: 'We\'ll drink a cup o\' kindness yet', playAt: 88},
+			{ message: 'For auld lang syne!', playAt: 92},
 
-	var _story = [
-				{ message: 'Somewhere over the rainbow', playAt: 36, readDuration:1 },
-				{ message: 'Way up high', playAt: 42, readDuration:1 },
-				{ message: 'And the dreams that you dreamed of', playAt: 47, readDuration:1 },
-				{ message: 'Once in a lullaby', playAt:53, readDuration:1 },
-				{ message: 'Somewhere over the rainbow', playAt:63, readDuration:1 },
-				{ message: 'Blue birds fly', playAt:70, readDuration:1 },
-				{ message: 'And the dreams that you dreamed of', playAt:75, readDuration:1 },
-				{ message: 'Dreams really do come true ooh oh', playAt:78, readDuration:1 },
-				{ message: 'Someday Ill wish upon a star', playAt:86, readDuration:1 },
-				{ message: 'Wake up where the clouds are far behind me', playAt:89, readDuration:1 },
-				{ message: 'Where trouble melts like lemon drops', playAt:97, readDuration:1 },
-				{ message: 'High above the chimney tops', playAt:101, readDuration:1 },
-				{ message: 'Thats where youll find me', playAt:104, readDuration:1 },
-				{ message: 'Oh, somewhere over the rainbow', playAt:110, readDuration:1 },
-				{ message: 'bluebirds fly', playAt:117, readDuration:1 },
-				{ message: 'And the dream that you dare to,', playAt:121, readDuration:1 },
-				{ message: 'Oh why, oh why cant I?', playAt:126, readDuration:1 },
-				{ message: 'Someday Ill wish upon a star,', playAt:135, readDuration:1 },
-				{ message: 'Wake up where the clouds are far behind me', playAt:139, readDuration:1 },
-				{ message: 'Where trouble melts like lemon drops', playAt:145, readDuration:1 },
-				{ message: 'High above the chimney top', playAt:149, readDuration:1 },
-				{ message: 'Thats where youll find me', playAt:152, readDuration:1 },
-				{ message: 'Oh, somewhere over the rainbow', playAt:158, readDuration:1 },
-				{ message: 'way up high', playAt:160, readDuration:1 },
-				{ message: 'And the dream that you dare to, why, oh why cant I? I?', playAt:163, readDuration:1 }
+		]
+	};
 
 
 
 
 
-			]
+lyrics = music.lyrics.concat(peeps)
 
 
-	Object.defineProperty( self, 'story', { value: _story });
+	var song = {};
 
 
 
-	return self
+	Object.defineProperty( song, 'lyrics', { value: lyrics });
+	Object.defineProperty( song, 'video', { value: music.video });
+
+
+
+
+
+
+
+
+	return song
 });
-
-

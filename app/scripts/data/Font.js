@@ -1,6 +1,8 @@
 /*global define*/
 define(function(require){
 	'use strict';
+	 var Style = require('data/Style');
+	var $ = require('jquery');
 
 	var PIXI = require('pixi');
 	var _ = require('_');
@@ -84,6 +86,8 @@ define(function(require){
 					return abc['period'];
 				}else if(character===','){
 					return abc['comma'];
+				}else if(character==='\''){
+					return abc['aposterphe'];
 				}
 				return this.characters.special.notfound;
 			}
@@ -282,23 +286,28 @@ define(function(require){
 					id: 'comma',
 					points: [ [[0,190],[10,190],[10,195],[5,200],[0,200],[0,190]], [[10,195],[-5,210]] ]
 				},
+				aposterphe: {
+					id: 'aposterphe',
+					points: [ [[0,0],[10,0],[10,5],[5,10],[0,10],[0,0]], [[10,5],[-5,20]] ]
+				},
 
 
 			},
 		}
 	};
 
-	var _scale = .7;
+	var _scale = .75;
 	var _width = 200;
 	var _height = 200;
-	var _leading = 40;
-	var _space = 80;
+
+
 
 	Object.defineProperty( Font, 'scale', { value: _scale });
 	Object.defineProperty( Font, 'width', { value: _scale*_width });
 	Object.defineProperty( Font, 'height', { value: _scale*_height });
-	Object.defineProperty( Font, 'leading', { value: _scale*_leading });
-	Object.defineProperty( Font, 'space', { value: _scale*_space });
+	Object.defineProperty( Font, 'leading', { value: _scale*_height*.3 });
+	Object.defineProperty( Font, 'space', { value: _scale*_width*.5 });
+	Object.defineProperty( Font, 'kerning', { value: _scale*_width*.2 });
 
 
 	return Font;

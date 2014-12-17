@@ -14,6 +14,8 @@ define(function(require){
 		Basic.call(this, content.message, mommy, queue, 'MESSAGE');
 
 		this.playAt = content.playAt;
+		this.virgin = true;
+
 		this.readDuration = content.readDuration;
 
 		this.createChildren( Word, content.message.split(' ') );
@@ -27,10 +29,10 @@ define(function(require){
 
 		this.children.forEach( function(wordItem){
 			//is there enough space on this line
-
+			
 			if(_x + wordItem.width > _drawingArea.width){
 				_x = Style.drawingArea.x;
-				_y += Font.height + Font.leading + _drawingArea.y;
+				_y += Font.height + Font.leading + 0;
 			}
 			wordItem.offsetX = _x;
 			wordItem.offsetY = _y;
